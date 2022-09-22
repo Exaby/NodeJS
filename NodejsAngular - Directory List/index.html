@@ -1,0 +1,40 @@
+<html ng-app="directory">
+  <head>
+    <title>AngularJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+      var app = angular.module("directory", []);
+      app.controller("tableController", function ($scope, $http) {
+        // read json and apply to ng-repeat
+        $http.get("/files/api/index.json").then(function (response) {
+          $scope.names = response.data;
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div ng-controller="tableController" class="">
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th>File Name</th>
+          <th>File Size</th>
+          <th>File Type</th>
+          <th>Open File</th>
+        </tr>
+        <tr ng-repeat="x in names">
+          <td>{{ x.name }}</td>
+          <td>{{ x.size }}</td>
+          <td>{{ x.type }}</td>
+          <td>
+            <a href="/files/get/{{ x.name }}" target="_blank">Open</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
