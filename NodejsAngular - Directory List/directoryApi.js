@@ -4,7 +4,20 @@ var mime = require("mime-types");
 // Config
 var port = 3000;
 var host = "localhost";
+// Function library
+function formatBytes(bytes, decimals = 2) {
+  if (!+bytes) return '0 Bytes'
 
+  // No windows formatting for me :)
+  const k = 1024
+  const dm = decimals < 0 ? 0 : decimals
+  // max file size is *TB because whos gonna have a 1PB file?
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+}
 // read directory
 var fileList = [];
 var fileIndex = [];
@@ -18,7 +31,7 @@ function getFiles() {
   // incude names a file types
   for (var i = 0; i < fileList.length; i++) {
     var file = fileList[i];
-    var size = fs.statSync("./files/" + file).size;
+    var size = formatBytes(fs.statSync("./files/" + file).size);
     var type = mime.lookup(file);
     fileIndex.push({ name: file, size: size, type: type });
   }
