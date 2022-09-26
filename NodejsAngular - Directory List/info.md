@@ -5,6 +5,7 @@
         - mime-types - v2.1.35
     - AnguarJS latest
     - Bootstrap v3 (css/js)
+        - jquery for bootstrap.js
 
 ## Features and Use
 
