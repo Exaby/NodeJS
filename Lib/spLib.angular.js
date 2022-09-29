@@ -1,3 +1,4 @@
+// This normaly isn't used since 95% of the time this type of api is used by node and not angular
 function mimeLookup(input) {
   var request = new XMLHttpRequest();
   request.open(
