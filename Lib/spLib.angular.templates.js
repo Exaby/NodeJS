@@ -6,3 +6,10 @@ function httpGet(url) {
       response.data;
    });
 }
+
+function forUntil(counter) {
+   for (var i = 0; i < counter; i++) {
+      // you can use the i variable to see what repetion you are on
+      console.log(i)
+   }  
+}
