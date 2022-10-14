@@ -1,6 +1,6 @@
 // Language: javascript - nodejs framework
 // Path: .\spLib.js
-// index = { toBinary, toDecimal, readDirJson, readJson, httpGet, httpPost }
+// index = { toBinary, toDecimal, readDirJson, readJson, httpGet, httpPost, getThumbnailFromVideo }
 // every section is defined by a comment with the same name
 
 // Binary Numbers
@@ -96,3 +96,46 @@ function toBinary(num) {
   
   module.exports = { httpGet: httpGet, httpPost: httpPost };
  
+// ffmpeg
+
+function getThumbnailFromVideo (videoPath, homePath) {
+    const fs = require('fs');
+    const path = require('path');
+    const ffmpeg = require('fluent-ffmpeg');
+    
+    const thumbnailFolder = path.join(homePath, 'thumbnails');
+    const thumbnailPath = path.join(homePath, path.basename(videoPath, path.extname(videoPath)) + '.jpg');
+
+    if (!fs.existsSync(thumbnailFolder)) {
+        fs.mkdirSync(thumbnailFolder);
+    }
+    
+    if (fs.existsSync(thumbnailPath)) {
+        return thumbnailPath;
+    } else {
+        // create thumbnail
+        ffmpeg(videoPath)
+            .on('filenames', function(filenames) {
+                console.log('Will generate ' + filenames.join(', '))
+            }
+            )
+            .on('end', function() {
+                console.log('Thumbnail for ' +path.basename(videoPath, path.extname(videoPath))+ '.jpg created');
+                return thumbnailPath;
+            }
+            )
+            .on('error', function(err) {
+                console.error(err);
+            }
+            )
+            .screenshots({
+                count: 1,
+                folder: thumbnailFolder,
+                filename: path.basename(videoPath, path.extname(videoPath)) + '.jpg',
+                size: '320x240'
+            });
+    }
+    
+}
+
+module.exports = { getThumbnailFromVideo };
