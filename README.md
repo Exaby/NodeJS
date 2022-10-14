@@ -6,6 +6,7 @@ A collection of projects and libraries based around nodeJS LTS (16.17.1)
         - AngularJS
         - mime-db
         - mime-types
+        - fluent ffmpeg (and the libarys it uses)
     Internal
         - fs
         - http
