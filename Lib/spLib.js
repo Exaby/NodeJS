@@ -98,6 +98,8 @@ function toBinary(num) {
  
 // ffmpeg
 
+// ffmpeg
+
 function getThumbnailFromVideo (videoPath, homePath) {
     const fs = require('fs');
     const path = require('path');
@@ -106,14 +108,14 @@ function getThumbnailFromVideo (videoPath, homePath) {
     ffmpeg.setFfmpegPath(path.join(homePath, 'ffmpeg.exe'));
     
     const thumbnailFolder = path.join(homePath, 'thumbnails');
-    const thumbnailPath = path.join(homePath, path.basename(videoPath, path.extname(videoPath)) + '.jpg');
+    const thumbnailPath = path.join(thumbnailFolder, path.basename(videoPath, path.extname(videoPath)) + '.jpg');
 
     if (!fs.existsSync(thumbnailFolder)) {
         fs.mkdirSync(thumbnailFolder);
     }
-    
+
     if (fs.existsSync(thumbnailPath)) {
-        return thumbnailPath;
+        console.log('thumbnail for '+path.basename(videoPath)+' already exists');
     } else {
         // create thumbnail
         ffmpeg(videoPath)
@@ -122,7 +124,7 @@ function getThumbnailFromVideo (videoPath, homePath) {
             }
             )
             .on('end', function() {
-                console.log('Thumbnail for ' +path.basename(videoPath, path.extname(videoPath))+ '.jpg created');
+                console.log('Thumbnail for '+path.basename(videoPath)+' created');
                 return thumbnailPath;
             }
             )
@@ -139,5 +141,8 @@ function getThumbnailFromVideo (videoPath, homePath) {
     }
     
 }
+
+module.exports = { getThumbnailFromVideo };
+
 
 module.exports = { getThumbnailFromVideo };
