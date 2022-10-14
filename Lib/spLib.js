@@ -102,6 +102,8 @@ function getThumbnailFromVideo (videoPath, homePath) {
     const fs = require('fs');
     const path = require('path');
     const ffmpeg = require('fluent-ffmpeg');
+    // will make work for unix systems later
+    ffmpeg.setFfmpegPath(path.join(homePath, 'ffmpeg.exe'));
     
     const thumbnailFolder = path.join(homePath, 'thumbnails');
     const thumbnailPath = path.join(homePath, path.basename(videoPath, path.extname(videoPath)) + '.jpg');
