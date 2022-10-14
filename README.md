@@ -24,4 +24,4 @@ A collection of projects and libraries based around nodeJS LTS (16.17.1)
 
     WIP
         - spLib, and all variations
-        - ffmpeg thumbnail api (no working system yet)
+        - ffmpeg thumbnail api (working but still needs more testing)
