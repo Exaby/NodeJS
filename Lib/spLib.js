@@ -96,9 +96,7 @@ function toBinary(num) {
   
   module.exports = { httpGet: httpGet, httpPost: httpPost };
  
-// ffmpeg
-
-// ffmpeg
+//ffmpeg
 
 function getThumbnailFromVideo (videoPath, homePath) {
     const fs = require('fs');
@@ -110,11 +108,11 @@ function getThumbnailFromVideo (videoPath, homePath) {
     const thumbnailFolder = path.join(homePath, 'thumbnails');
     const thumbnailPath = path.join(thumbnailFolder, path.basename(videoPath, path.extname(videoPath)) + '.jpg');
 
-    if (!fs.existsSync(thumbnailFolder)) {
-        fs.mkdirSync(thumbnailFolder);
+    if (!fs.existsSync(thumbnailFolder.catch(err => console.log(err)))) {
+        fs.mkdirSync(thumbnailFolder).catch(err => console.log(err));
     }
 
-    if (fs.existsSync(thumbnailPath)) {
+    if (fs.existsSync(thumbnailPath).catch(err => console.log(err))) {
         console.log('thumbnail for '+path.basename(videoPath)+' already exists');
     } else {
         // create thumbnail
@@ -129,6 +127,7 @@ function getThumbnailFromVideo (videoPath, homePath) {
             }
             )
             .on('error', function(err) {
+                console.log('Could not make thumbnail for ' + path.basename(videoPath));
                 console.error(err);
             }
             )
@@ -141,8 +140,5 @@ function getThumbnailFromVideo (videoPath, homePath) {
     }
     
 }
-
-module.exports = { getThumbnailFromVideo };
-
 
 module.exports = { getThumbnailFromVideo };
