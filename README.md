@@ -23,5 +23,6 @@ A collection of projects and libraries based around nodeJS LTS (16.17.1)
         - Directory List (nodejs + angular stack)
 
     WIP
+        - Revamped Directory List with file previews
         - spLib, and all variations
         - ffmpeg thumbnail api (working but still needs more testing)
