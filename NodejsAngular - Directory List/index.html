@@ -1,6 +1,7 @@
 <html ng-app="directory">
   <head>
     <title>AngularJS</title>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <link
       rel="stylesheet"
@@ -8,6 +9,7 @@
     />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <script>
       var app = angular.module("directory", []);
       app.controller("tableController", function ($scope, $http) {
@@ -26,13 +28,39 @@
           <th>File Size</th>
           <th>File Type</th>
           <th>Open File</th>
+          <th>Thumbnail</th>
         </tr>
         <tr ng-repeat="x in names">
           <td>{{ x.name }}</td>
           <td>{{ x.size }}</td>
           <td>{{ x.type }}</td>
           <td>
-          <a href="/files/get/{{ x.name }}" target="_blank">Open {{ x.name }}</a>
+            <a href="/files/get/{{ x.name }}" target="_blank"
+              >Open {{ x.name }}</a
+            >
+            <div ng-if='x.thumb != "empty"'>
+              <a
+                href="/preview?url=/files/get/{{x.name}}&img=/files/api/thumb/{{x.thumb}}"
+                >Preview {{x.name}}</a
+              >
+            </div>
+          </td>
+          <td>
+            <a
+              href="/files/api/thumb/{{x.thumb}}"
+              target="_blank"
+              style="width: 60%"
+            >
+              <div ng-if='x.thumb != "empty"'>
+                <img
+                  src="/files/api/thumb/{{x.thumb}}"
+                  class="img-responsive img-thumbnail"
+                  width="120vw"
+                  height="60%"
+                  alt="/files/api/thumb/{{x.thumb}}"
+                />
+              </div>
+            </a>
           </td>
         </tr>
       </table>
