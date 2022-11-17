@@ -3,7 +3,7 @@ function mimeLookup(input) {
   var request = new XMLHttpRequest();
   request.open(
     "GET",
-    "https://cdn.jsdelivr.net/gh/jshttp/mime-db@master/src/nginx-types.json",
+    "https://cdn.spco.xyz/api/static/nginx-types.json",
     false
   );
   request.send(null);
